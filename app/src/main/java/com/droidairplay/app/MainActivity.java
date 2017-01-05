@@ -3,6 +3,8 @@ package com.droidairplay.app;
 import android.os.StrictMode;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 import com.raventech.airplayserver.AirPlayServer;
 import com.raventech.airplayserver.network.NetworkUtils;
@@ -15,6 +17,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -23,8 +27,12 @@ public class MainActivity extends AppCompatActivity
 
     public void startAirPlay()
     {
+        //get Network details
+        NetworkUtils networkUtils = NetworkUtils.getInstance();
+
         String msg = "bug occur!";
-        NetworkUtils.getInstance().setHostName("AndroidThingsAirplay");
+        String hardwareAddressString = networkUtils.getHardwareAddressString();
+        NetworkUtils.getInstance().setHostName("Airplay "+ hardwareAddressString);
         final AirPlayServer airPlayServer = AirPlayServer.getIstance();
         airPlayServer.setRtspPort(8998);
         Thread airThread = new Thread(airPlayServer);
