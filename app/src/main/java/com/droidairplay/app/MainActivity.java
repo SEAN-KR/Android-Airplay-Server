@@ -5,17 +5,22 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.raventech.airplayserver.AirPlayServer;
 import com.raventech.airplayserver.network.NetworkUtils;
 
 public class MainActivity extends AppCompatActivity
 {
+    private TextView deviceName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        deviceName = (TextView) findViewById(R.id.deviceName);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -31,8 +36,10 @@ public class MainActivity extends AppCompatActivity
         NetworkUtils networkUtils = NetworkUtils.getInstance();
 
         String msg = "bug occur!";
-        String hardwareAddressString = networkUtils.getHardwareAddressString();
-        NetworkUtils.getInstance().setHostName("Airplay "+ hardwareAddressString);
+        String hardwareNameAddressString = "Airplay " + networkUtils.getHardwareAddressString();
+
+        deviceName.setText(hardwareNameAddressString);
+        NetworkUtils.getInstance().setHostName(hardwareNameAddressString);
         final AirPlayServer airPlayServer = AirPlayServer.getIstance();
         airPlayServer.setRtspPort(8998);
         Thread airThread = new Thread(airPlayServer);
