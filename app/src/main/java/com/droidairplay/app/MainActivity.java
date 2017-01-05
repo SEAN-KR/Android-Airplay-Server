@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity
     public void startAirPlay()
     {
         String msg = "bug occur!";
-        NetworkUtils.getInstance().setHostName("FuckTest15");
+        NetworkUtils.getInstance().setHostName("AndroidThingsAirplay");
         final AirPlayServer airPlayServer = AirPlayServer.getIstance();
         airPlayServer.setRtspPort(8998);
         Thread airThread = new Thread(airPlayServer);
