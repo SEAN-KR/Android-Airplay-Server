@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.3.3'
     }
 }
 apply plugin: 'com.android.application'
@@ -14,7 +14,7 @@ repositories {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.droidairplay.app"
@@ -44,4 +44,5 @@ dependencies {
     compile 'net.iharder:base64:2.3.8'
     compile files('libs/jmdns-3.5.0.jar')
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+    provided 'com.google.android.things:androidthings:0.4.1-devpreview'
 }
